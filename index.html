@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juwon Thetech</title>
+<meta name="description" content="Web Developer, Logo Designer & Graphic Designer crafting digital experiences that make an impact for the world.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Bricolage+Grotesque:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#04080f;--ink2:#080f1a;--ink3:#0d1626;
+  --paper:#e8f0fe;--paper2:#7b8fb0;
+  --accent:#38bdf8;--accent2:#0ea5e9;
+  --orange:#ff6b35;--blue:#4488ff;
+  --border:rgba(56,189,248,0.12);
+  --font-display:'Syne',sans-serif;
+  --font-body:'Bricolage Grotesque',sans-serif;
+  --font-mono:'DM Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  background:var(--ink);color:var(--paper);
+  font-family:var(--font-body);overflow-x:hidden;
+  cursor:none;
+}
+/* GRAIN */
+body::after{
+  content:'';position:fixed;inset:-200%;width:400%;height:400%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9998;animation:grain 0.8s steps(3) infinite;
+  opacity:0.35;
+}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-5%,-5%)}40%{transform:translate(-10%,5%)}60%{transform:translate(5%,-10%)}80%{transform:translate(-5%,15%)}100%{transform:translate(10%,5%)}}
+
+/* CURSOR */
+#c-dot{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .05s,width .4s,height .4s,background .3s;mix-blend-mode:difference}
+#c-ring{position:fixed;width:44px;height:44px;border:1.5px solid rgba(56,189,248,0.4);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .4s,height .4s,border-color .4s}
+.cursor-big #c-dot{width:60px;height:60px;background:rgba(56,189,248,0.1)}
+.cursor-big #c-ring{width:0;height:0;border-color:transparent}
+
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--ink);z-index:10000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0}
+.loader-count{font-family:var(--font-display);font-size:clamp(6rem,15vw,12rem);font-weight:800;color:var(--paper);line-height:1;overflow:hidden}
+.loader-count span{display:block;animation:slideUp .2s ease forwards}
+.loader-bar-wrap{width:100%;position:absolute;bottom:0;left:0}
+.loader-bar-fill{height:3px;background:var(--accent);width:0;transition:width .05s linear}
+.loader-text{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.2em;color:var(--paper2);margin-top:8px;opacity:0.5;text-transform:uppercase}
+#loader.out{animation:loaderOut .7s cubic-bezier(0.76,0,0.24,1) forwards}
+@keyframes loaderOut{to{transform:translateY(-100%)}}
+
+/* CURTAIN PAGE TRANSITION */
+#curtain{position:fixed;inset:0;background:var(--accent);z-index:9996;transform:translateY(100%);pointer-events:none}
+#curtain.in{animation:curtainIn .5s cubic-bezier(0.76,0,0.24,1) forwards}
+#curtain.out{animation:curtainOut .5s cubic-bezier(0.76,0,0.24,1) forwards}
+@keyframes curtainIn{from{transform:translateY(100%)}to{transform:translateY(0%)}}
+@keyframes curtainOut{from{transform:translateY(0%)}to{transform:translateY(-100%)}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:28px 48px;display:flex;align-items:center;justify-content:space-between;mix-blend-mode:difference}
+.nav-logo{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:1.2rem;color:var(--paper);text-decoration:none;letter-spacing:-.02em}
+.nav-logo-img{width:32px;height:32px;border-radius:8px;object-fit:cover;border:1px solid rgba(255,255,255,0.15)}
+.nav-menu{display:flex;gap:36px;list-style:none}
+.nav-menu a{font-family:var(--font-mono);font-size:.78rem;color:var(--paper2);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-menu a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--accent);transition:width .3s}
+.nav-menu a:hover{color:var(--paper)}
+.nav-menu a:hover::after,.nav-menu a.active::after{width:100%}
+.nav-menu a.active{color:var(--paper)}
+.nav-cta{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:#04080f;background:var(--accent);padding:10px 22px;border-radius:100px;text-decoration:none;transition:transform .3s,box-shadow .3s;cursor:none}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(56,189,248,0.3)}
+.ham{display:none;flex-direction:column;gap:6px;cursor:none;border:none;background:none;mix-blend-mode:difference;padding:4px}
+.ham span{width:26px;height:1.5px;background:var(--paper);transition:.3s}
+
+/* HERO */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 48px 80px;gap:40px;position:relative;overflow:hidden}
+.hero-mesh{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.mesh-blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.12;animation:blobAnim 12s ease infinite}
+.b1{width:600px;height:600px;background:#38bdf8;top:-100px;left:-100px;animation-delay:0s}
+.b2{width:500px;height:500px;background:#818cf8;top:40%;right:-100px;animation-delay:-5s}
+.b3{width:400px;height:400px;background:#0ea5e9;bottom:-100px;left:30%;animation-delay:-9s}
+@keyframes blobAnim{0%,100%{transform:scale(1) translate(0,0)}33%{transform:scale(1.1) translate(30px,-30px)}66%{transform:scale(0.95) translate(-20px,20px)}}
+
+.hero-left{position:relative;z-index:2}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:32px;overflow:hidden}
+.hero-eyebrow-inner{display:flex;align-items:center;gap:12px;animation:revealRight 1s 2.8s cubic-bezier(0.16,1,0.3,1) both}
+.eyebrow-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:blink 2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.eyebrow-text{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.hero-name{font-family:var(--font-display);font-size:clamp(3rem,7.5vw,7rem);font-weight:800;line-height:0.95;letter-spacing:-.03em;margin-bottom:24px}
+.name-line{overflow:hidden;display:block}
+.name-line-inner{display:block;transform:translateY(110%);animation:slideUp 1s cubic-bezier(0.16,1,0.3,1) both}
+.l1{animation-delay:2.9s}
+.l2{animation-delay:3.05s}
+.l3{animation-delay:3.2s;background:linear-gradient(90deg,#38bdf8,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-bio{font-size:1.05rem;line-height:1.75;color:var(--paper2);max-width:500px;margin-bottom:44px;overflow:hidden}
+.hero-bio-inner{animation:revealRight 1s 3.4s cubic-bezier(0.16,1,0.3,1) both;transform:translateX(-20px);opacity:0}
+@keyframes revealRight{from{transform:translateX(-20px);opacity:0}to{transform:translateX(0);opacity:1}}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;overflow:hidden}
+.hero-btns-inner{display:flex;gap:16px;flex-wrap:wrap;animation:revealRight 1s 3.55s cubic-bezier(0.16,1,0.3,1) both;transform:translateX(-20px);opacity:0}
+.btn-lime{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#04080f;padding:16px 32px;border-radius:100px;font-family:var(--font-display);font-weight:700;font-size:.95rem;text-decoration:none;cursor:none;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+.btn-lime::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.1);opacity:0;transition:opacity .3s}
+.btn-lime:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 20px 50px rgba(56,189,248,0.3)}
+.btn-lime:hover::before{opacity:1}
+.btn-ghost{display:inline-flex;align-items:center;gap:10px;background:transparent;color:var(--paper);padding:16px 32px;border-radius:100px;border:1px solid var(--border);font-family:var(--font-display);font-weight:600;font-size:.95rem;text-decoration:none;cursor:none;transition:transform .3s,border-color .3s,background .3s}
+.btn-ghost:hover{transform:translateY(-3px);border-color:rgba(56,189,248,0.4);background:rgba(56,189,248,0.05)}
+.btn-arr{display:inline-block;transition:transform .3s}
+.btn-lime:hover .btn-arr,.btn-ghost:hover .btn-arr{transform:translate(4px,-4px)}
+@keyframes slideUp{from{transform:translateY(110%)}to{transform:translateY(0%)}}
+
+.hero-right{position:relative;z-index:2;display:flex;justify-content:center;align-items:center}
+.hero-img-wrap{position:relative;width:460px;height:560px}
+.hero-img-frame{
+  position:absolute;inset:0;border-radius:24px;overflow:hidden;
+  clip-path:polygon(0 100%,100% 100%,100% 100%,0 100%);
+  animation:imgReveal 1.2s 3.0s cubic-bezier(0.76,0,0.24,1) forwards;
+}
+@keyframes imgReveal{to{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}}
+.hero-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transform:scale(1.1);animation:imgScale 1.4s 3.0s cubic-bezier(0.16,1,0.3,1) forwards}
+@keyframes imgScale{to{transform:scale(1)}}
+.hero-img-deco{position:absolute;bottom:-20px;right:-20px;width:200px;height:200px;border:1px solid rgba(56,189,248,0.2);border-radius:16px;animation:revealRight 1s 3.7s cubic-bezier(0.16,1,0.3,1) both;transform:translateX(20px);opacity:0}
+.hero-img-tag{position:absolute;top:24px;left:-24px;background:rgba(4,8,15,0.9);border:1px solid var(--border);backdrop-filter:blur(20px);padding:14px 18px;border-radius:14px;animation:revealRight 1s 3.8s cubic-bezier(0.16,1,0.3,1) both;transform:translateX(-20px);opacity:0}
+.tag-label{font-family:var(--font-mono);font-size:.68rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
+.tag-value{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-top:2px}
+.hero-img-tag2{position:absolute;bottom:60px;left:-40px;background:var(--accent);color:#04080f;padding:12px 18px;border-radius:12px;animation:revealRight 1s 3.9s cubic-bezier(0.16,1,0.3,1) both;transform:translateX(-20px);opacity:0}
+.tag2-icon{font-size:1.4rem}
+.tag2-text{font-family:var(--font-display);font-size:.8rem;font-weight:700;margin-top:2px}
+.orbit{position:absolute;inset:-30px;border-radius:50%;border:1px dashed rgba(56,189,248,0.15);animation:spin 30s linear infinite;pointer-events:none}
+.orbit-dot{position:absolute;top:0;left:50%;width:8px;height:8px;background:var(--accent);border-radius:50%;transform:translateX(-50%) translateY(-50%)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* MARQUEE */
+.marquee-strip{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;margin-top:80px;position:relative;z-index:2}
+.marquee-track{display:flex;gap:0;white-space:nowrap;animation:marquee 20s linear infinite}
+.marquee-item{display:inline-flex;align-items:center;gap:32px;padding-right:32px;font-family:var(--font-display);font-size:1rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--paper2)}
+.marquee-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;flex-shrink:0}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* LOGO SECTION */
+.logo-section{padding:80px 48px;position:relative;z-index:2;display:flex;align-items:center;gap:48px}
+.logo-img{width:140px;height:140px;object-fit:contain;border-radius:20px;border:1px solid var(--border);padding:16px;background:var(--ink2)}
+.logo-text{flex:1}
+.logo-text h2{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;margin-bottom:12px}
+.logo-text h2 span{color:var(--accent)}
+.logo-text p{color:var(--paper2);font-size:1.05rem;line-height:1.75;max-width:560px}
+
+/* ABOUT PREVIEW */
+.about-preview{padding:0 48px 100px;position:relative;z-index:2}
+.ap-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--border)}
+.ap-card{background:var(--ink);padding:36px 36px 40px;transition:background .4s;cursor:none;position:relative;overflow:hidden}
+.ap-card:hover{background:var(--ink3)}
+.ap-card-img{width:100%;height:160px;object-fit:cover;border-radius:12px;margin-bottom:24px;border:1px solid var(--border);transition:transform .4s cubic-bezier(0.16,1,0.3,1)}
+.ap-card:hover .ap-card-img{transform:scale(1.03)}
+.ap-num{font-family:var(--font-display);font-size:3.5rem;font-weight:800;color:var(--accent);line-height:1;margin-bottom:12px}
+.ap-label{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:10px}
+.ap-desc{color:var(--paper2);font-size:.9rem;line-height:1.7}
+
+/* FOOTER NAV */
+.page-footer{padding:48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;position:relative;z-index:2}
+.footer-copy{font-family:var(--font-mono);font-size:.75rem;color:var(--paper2);letter-spacing:.08em}
+.footer-email{font-family:var(--font-mono);font-size:.75rem;color:var(--accent);letter-spacing:.08em;text-decoration:none;transition:opacity .3s}
+.footer-email:hover{opacity:0.7}
+.footer-nav{display:flex;gap:28px}
+.footer-nav a{font-family:var(--font-mono);font-size:.72rem;color:var(--paper2);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .3s}
+.footer-nav a:hover{color:var(--paper)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(50px);transition:opacity .9s cubic-bezier(0.16,1,0.3,1),transform .9s cubic-bezier(0.16,1,0.3,1)}
+.rv.on{opacity:1;transform:translateY(0)}
+.rv-l{opacity:0;transform:translateX(-50px);transition:opacity .9s cubic-bezier(0.16,1,0.3,1),transform .9s cubic-bezier(0.16,1,0.3,1)}
+.rv-l.on{opacity:1;transform:translateX(0)}
+.rv-r{opacity:0;transform:translateX(50px);transition:opacity .9s cubic-bezier(0.16,1,0.3,1),transform .9s cubic-bezier(0.16,1,0.3,1)}
+.rv-r.on{opacity:1;transform:translateX(0)}
+
+/* MOBILE */
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr;padding:100px 24px 60px;text-align:center}
+  .hero-right{display:none}
+  .hero-eyebrow,.hero-btns-inner{justify-content:center}
+  nav{padding:20px 24px}
+  .nav-menu,.nav-cta{display:none}
+  .ham{display:flex}
+  .logo-section{flex-direction:column;padding:60px 24px;text-align:center}
+  .about-preview{padding:0 24px 60px}
+  .ap-grid{grid-template-columns:1fr}
+  .page-footer{padding:32px 24px;flex-direction:column;text-align:center}
+}
+
+/* MOBILE NAV OVERLAY */
+#mnav{position:fixed;inset:0;background:var(--ink);z-index:800;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;transform:translateX(100%);transition:transform .5s cubic-bezier(0.76,0,0.24,1)}
+#mnav.open{transform:translateX(0)}
+#mnav a{font-family:var(--font-display);font-size:2.5rem;font-weight:700;color:var(--paper);text-decoration:none;transition:color .2s}
+#mnav a:hover{color:var(--accent)}
+.mclose{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--paper);font-size:1.5rem;cursor:none;font-family:var(--font-mono)}
+</style>
+</head>
+<body>
+<div id="c-dot"></div>
+<div id="c-ring"></div>
+<div id="curtain"></div>
+<div id="mnav">
+  <button class="mclose" id="mclose">✕ close</button>
+  <a href="index.html" onclick="nav(event,this.href)">Home</a>
+  <a href="about.html" onclick="nav(event,this.href)">About</a>
+  <a href="portfolio.html" onclick="nav(event,this.href)">Portfolio</a>
+</div>
+
+<div id="loader">
+  <div class="loader-count"><span id="lnum">0</span></div>
+  <div class="loader-text">Loading Experience</div>
+  <div class="loader-bar-wrap"><div class="loader-bar-fill" id="lbar"></div></div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo" onclick="nav(event,this.href)">
+    <img src="logo.jpg" alt="Logo" class="nav-logo-img"/>
+    Juwon Thetech 
+  </a>
+  <ul class="nav-menu">
+    <li><a href="index.html" class="active" onclick="nav(event,this.href)">Home</a></li>
+    <li><a href="about.html" onclick="nav(event,this.href)">About</a></li>
+    <li><a href="portfolio.html" onclick="nav(event,this.href)">Portfolio</a></li>
+  </ul>
+  <a href="portfolio.html#contact" class="nav-cta" onclick="nav(event,this.href)">Hire Me</a>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-mesh">
+    <div class="mesh-blob b1"></div>
+    <div class="mesh-blob b2"></div>
+    <div class="mesh-blob b3"></div>
+  </div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-inner">
+        <div class="eyebrow-dot"></div>
+        <span class="eyebrow-text">Available for Projects · 2026</span>
+      </div>
+    </div>
+    <h1 class="hero-name">
+      <span class="name-line"><span class="name-line-inner l1">Hello World,</span></span>
+      <span class="name-line"><span class="name-line-inner l2">I'm Abdulsalam</span></span>
+      <span class="name-line"><span class="name-line-inner l3">a.k.a Juwon Thetech</span></span>
+    </h1>
+    <div class="hero-bio">
+      <div class="hero-bio-inner">A Web Developer, Logo Designer, &amp; Graphic Designer crafting digital experiences that make an impact for the world. I transform ideas into stunning websites and memorable brand identities, always bringing your vision to life with clean code and creative design.</div>
+    </div>
+    <div class="hero-btns">
+      <div class="hero-btns-inner">
+        <a href="portfolio.html" class="btn-lime" onclick="nav(event,this.href)">View Portfolio <span class="btn-arr">↗</span></a>
+        <a href="about.html" class="btn-ghost" onclick="nav(event,this.href)">Get Started <span class="btn-arr">→</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <div class="orbit"><div class="orbit-dot"></div></div>
+      <div class="hero-img-frame">
+        <img src="pic.png" alt="image" class="hero-img" loading="eager"/>
+      </div>
+      <div class="hero-img-deco"></div>
+      <div class="hero-img-tag">
+        <div class="tag-label">Status</div>
+        <div class="tag-value">Open to Work ✦</div>
+      </div>
+      <div class="hero-img-tag2">
+        <div class="tag2-icon">🚀</div>
+        <div class="tag2-text">Juwon TheTech</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip rv">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="marquee-dot"></span>Web Developer</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Logo Designer</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Graphic Designer</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Digital Creator</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Brand Identity</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Clean Code</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Creative Design</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Juwon TheTech</div>
+    <!-- repeat for seamless -->
+    <div class="marquee-item"><span class="marquee-dot"></span>Web Developer</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Logo Designer</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Graphic Designer</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Digital Creator</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Brand Identity</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Clean Code</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Creative Design</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>Juwon TheTech</div>
+  </div>
+</div>
+
+<!-- LOGO + INTRO -->
+<div class="logo-section rv">
+  <img src="logo.jpg" alt="Juwon TheTech Logo" class="logo-img">
+  <div class="logo-text">
+    <h2>Juwon <span>TheTech</span></h2>
+    <p>A creative force blending technical precision with artistic vision. Based in Nigeria, building for the world. Every pixel is intentional. Every line of code is purposeful. This is what it means to craft digital experiences.</p>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="about-preview">
+  <div class="ap-grid rv">
+    <div class="ap-card">
+      <img src="pro.jpg" alt="Projects" class="ap-card-img">
+      <div class="ap-num">20+</div>
+      <div class="ap-label">Projects Delivered</div>
+      <div class="ap-desc">Websites, brand identities, and digital experiences shipped to clients across multiple industries.</div>
+    </div>
+    <div class="ap-card">
+      <img src="po.jpg" alt="Skills" class="ap-card-img">
+      <div class="ap-num">03</div>
+      <div class="ap-label">Core Skills</div>
+      <div class="ap-desc">Web Development, Logo Design & Graphic Design — mastered and deployed with craft and intention.</div>
+    </div>
+    <div class="ap-card">
+      <img src="pr.jpg" alt="Vision" class="ap-card-img">
+      <div class="ap-num">∞</div>
+      <div class="ap-label">Creative Vision</div>
+      <div class="ap-desc">Ideas transformed into reality. Vision to life — with clean code and creative design, every time.</div>
+    </div>
+  </div>
+</div>
+
+<footer class="page-footer rv">
+  <div class="footer-copy">© 2026 Abdulsalam a.k.a Juwon Thetech. All rights reserved.</div>
+  <a href="mailto:JuwonThetech@gmail.com" class="footer-email">JuwonThetech@gmail.com</a>
+  <nav class="footer-nav">
+    <a href="index.html" onclick="nav(event,this.href)">Home</a>
+    <a href="about.html" onclick="nav(event,this.href)">About</a>
+    <a href="portfolio.html" onclick="nav(event,this.href)">Portfolio</a>
+  </nav>
+</footer>
+
+<script>
+// CURSOR
+const dot=document.getElementById('c-dot'),ring=document.getElementById('c-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+(function rafRing(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(rafRing)})();
+document.querySelectorAll('a,button,.ap-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-big'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-big'));
+});
+
+// LOADER
+let prog=0;
+const lnum=document.getElementById('lnum'),lbar=document.getElementById('lbar');
+const ldr=document.getElementById('loader');
+const inc=setInterval(()=>{
+  prog+=Math.random()*4+1;
+  if(prog>=100){prog=100;clearInterval(inc);
+    setTimeout(()=>{ldr.classList.add('out');setTimeout(()=>{ldr.style.display='none';initReveal()},700)},300);
+  }
+  lnum.textContent=Math.floor(prog);
+  lbar.style.width=prog+'%';
+},40);
+
+// PAGE TRANSITION
+function nav(e,href){
+  e.preventDefault();
+  const c=document.getElementById('curtain');
+  c.className='in';
+  setTimeout(()=>window.location.href=href,500);
+}
+// Curtain out on load
+window.addEventListener('pageshow',()=>{
+  const c=document.getElementById('curtain');
+  c.className='out';
+  setTimeout(()=>c.className='',500);
+});
+
+// MOBILE NAV
+document.getElementById('ham').addEventListener('click',()=>document.getElementById('mnav').classList.add('open'));
+document.getElementById('mclose').addEventListener('click',()=>document.getElementById('mnav').classList.remove('open'));
+
+// SCROLL REVEAL
+function initReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}});
+  },{threshold:0.12});
+  document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>obs.observe(el));
+}
+
+// 3D TILT on logo-section
+document.querySelector('.logo-img')?.addEventListener('mousemove',function(e){
+  const r=this.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+  this.style.transform=`perspective(400px) rotateY(${x*20}deg) rotateX(${-y*20}deg) scale(1.05)`;
+});
+document.querySelector('.logo-img')?.addEventListener('mouseleave',function(){this.style.transform=''});
+</script>
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juwon TheTech</title>
+<meta name="description" content="Projects, work and contact — Shadow (Juwon TheTech) Web Developer, Logo Designer & Graphic Designer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Bricolage+Grotesque:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#04080f;--ink2:#080f1a;--ink3:#0d1626;
+  --paper:#f0f0f0;--paper2:#888888;--paper3:#2a3a52;
+  --lime:#38bdf8;--orange:#ff6b35;--blue:#4488ff;--pink:#ff4488;
+  --border:rgba(56,189,248,0.12);
+  --font-display:'Syne',sans-serif;
+  --font-body:'Bricolage Grotesque',sans-serif;
+  --font-mono:'DM Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--paper);font-family:var(--font-body);overflow-x:hidden;cursor:none}
+body::after{content:'';position:fixed;inset:-200%;width:400%;height:400%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;animation:grain .8s steps(3) infinite;opacity:.35}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-5%,-5%)}40%{transform:translate(-10%,5%)}60%{transform:translate(5%,-10%)}80%{transform:translate(-5%,15%)}100%{transform:translate(10%,5%)}}
+
+/* CURSOR */
+#c-dot{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#c-ring{position:fixed;width:44px;height:44px;border:1.5px solid rgba(56,189,248,0.4);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .4s,height .4s}
+.cursor-big #c-dot{width:60px;height:60px;background:rgba(56,189,248,0.06)}
+.cursor-big #c-ring{width:0;height:0}
+
+/* CURTAIN */
+#curtain{position:fixed;inset:0;background:var(--accent);z-index:9996;transform:translateY(-100%);pointer-events:none}
+#curtain.in{animation:cIn .5s cubic-bezier(0.76,0,0.24,1) forwards}
+#curtain.out{animation:cOut .5s cubic-bezier(0.76,0,0.24,1) forwards}
+@keyframes cIn{from{transform:translateY(100%)}to{transform:translateY(0%)}}
+@keyframes cOut{from{transform:translateY(0%)}to{transform:translateY(-100%)}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:28px 48px;display:flex;align-items:center;justify-content:space-between;mix-blend-mode:difference}
+.nav-logo{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:1.2rem;color:var(--paper);text-decoration:none}
+.nav-logo-img{width:32px;height:32px;border-radius:8px;object-fit:cover;border:1px solid rgba(255,255,255,0.15)}
+.nav-menu{display:flex;gap:36px;list-style:none}
+.nav-menu a{font-family:var(--font-mono);font-size:.78rem;color:var(--paper2);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-menu a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--accent);transition:width .3s}
+.nav-menu a:hover{color:var(--paper)}
+.nav-menu a:hover::after,.nav-menu a.active::after{width:100%}
+.nav-menu a.active{color:var(--paper)}
+.nav-cta{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:#04080f;background:var(--accent);padding:10px 22px;border-radius:100px;text-decoration:none;cursor:none;transition:transform .3s}
+.nav-cta:hover{transform:translateY(-2px)}
+.ham{display:none;flex-direction:column;gap:6px;cursor:none;border:none;background:none;mix-blend-mode:difference;padding:4px}
+.ham span{width:26px;height:1.5px;background:var(--paper)}
+#mnav{position:fixed;inset:0;background:var(--ink);z-index:800;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;transform:translateX(100%);transition:transform .5s cubic-bezier(0.76,0,0.24,1)}
+#mnav.open{transform:translateX(0)}
+#mnav a{font-family:var(--font-display);font-size:2.5rem;font-weight:700;color:var(--paper);text-decoration:none}
+#mnav a:hover{color:var(--accent)}
+.mclose{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--paper);font-size:1.5rem;cursor:none;font-family:var(--font-mono)}
+
+/* PAGE HEADER */
+.page-header{padding:160px 48px 80px;position:relative;overflow:hidden}
+.ph-label{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.ph-label::before{content:'';display:block;width:24px;height:1px;background:var(--accent)}
+.ph-title{font-family:var(--font-display);font-size:clamp(4rem,10vw,9rem);font-weight:800;line-height:.9;letter-spacing:-.04em;background:linear-gradient(135deg,#38bdf8 0%,#818cf8 60%,#e8f0fe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ph-title .outline{-webkit-text-stroke:2px #38bdf8;-webkit-text-fill-color:transparent;background:none}
+.ph-line{overflow:hidden;display:block}
+.ph-line-inner{display:block;transform:translateY(110%)}
+.ph-line-inner.on{animation:slideUp .9s cubic-bezier(0.16,1,0.3,1) forwards}
+.ph-line-inner.d1{animation-delay:0s}
+.ph-line-inner.d2{animation-delay:.1s}
+@keyframes slideUp{to{transform:translateY(0%)}}
+
+/* FILTER */
+.filter-bar{padding:0 48px 40px;display:flex;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+.fb{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:10px 22px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--paper2);cursor:none;transition:all .3s}
+.fb.active,.fb:hover{border-color:var(--accent);color:var(--accent);background:rgba(56,189,248,0.06)}
+
+/* PROJECTS */
+.projects-wrap{padding:0 48px 80px}
+.proj-list{display:flex;flex-direction:column;gap:0;border-bottom:1px solid var(--border)}
+.proj-item{
+  display:grid;grid-template-columns:80px 1fr 220px 160px;
+  align-items:center;gap:32px;padding:36px 0;
+  border-top:1px solid var(--border);
+  cursor:none;transition:background .3s;
+  position:relative;overflow:hidden;
+}
+.proj-item::before{content:'';position:absolute;inset:0 -48px;background:var(--accent);transform:translateX(-110%);transition:transform .6s cubic-bezier(0.76,0,0.24,1);z-index:0}
+.proj-item:hover::before{transform:translateX(110%)}
+.proj-item>*{position:relative;z-index:1}
+.proj-num{font-family:var(--font-mono);font-size:.72rem;color:var(--paper3)}
+.proj-title-wrap{}
+.proj-title{font-family:var(--font-display);font-size:clamp(1.3rem,2.5vw,2rem);font-weight:800;line-height:1;letter-spacing:-.02em;transition:color .3s;background:linear-gradient(135deg,#e8f0fe,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.proj-item:hover .proj-title{background:linear-gradient(135deg,#04080f,#04080f);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.proj-desc{font-size:.85rem;color:var(--paper2);margin-top:6px;transition:color .3s}
+.proj-item:hover .proj-desc{color:rgba(8,8,8,0.7)}
+.proj-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.ptag{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;padding:5px 12px;border-radius:100px;border:1px solid var(--border);color:var(--paper2);transition:border-color .3s,color .3s}
+.proj-item:hover .ptag{border-color:rgba(8,8,8,0.2);color:rgba(8,8,8,0.7)}
+.proj-links{display:flex;gap:10px;justify-content:flex-end}
+.plink{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--paper2);text-decoration:none;font-size:.9rem;transition:all .3s;cursor:none}
+.plink:hover,.proj-item:hover .plink{border-color:rgba(56,189,248,0.15);color:var(--ink);background:rgba(4,8,15,0.1)}
+/* hover image preview */
+.proj-preview{
+  position:fixed;width:340px;height:240px;border-radius:16px;overflow:hidden;
+  pointer-events:none;z-index:600;opacity:0;transform:scale(0.9) rotate(-2deg);
+  transition:opacity .3s,transform .3s;box-shadow:0 30px 80px rgba(0,0,0,.5);
+}
+.proj-preview img{width:100%;height:100%;object-fit:cover}
+.proj-preview.show{opacity:1;transform:scale(1) rotate(0deg)}
+
+/* TESTIMONIALS */
+.testi-section{padding:80px 48px;border-top:1px solid var(--border)}
+.sec-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px;gap:20px;flex-wrap:wrap}
+.sec-title{font-family:var(--font-display);font-size:clamp(2rem,5vw,4rem);font-weight:800;letter-spacing:-.03em;line-height:1;background:linear-gradient(135deg,#e8f0fe 0%,#38bdf8 50%,#818cf8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sec-title span{background:linear-gradient(135deg,#38bdf8,#0ea5e9);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--border)}
+.tcard{background:var(--ink);padding:48px 40px;transition:background .3s;cursor:none;position:relative}
+.tcard:hover{background:var(--ink2)}
+.tcard-stars{font-size:1rem;color:var(--accent);letter-spacing:2px;margin-bottom:20px}
+.tcard-text{font-size:1.05rem;line-height:1.8;color:var(--paper2);margin-bottom:32px;font-style:italic}
+.tcard-author{display:flex;align-items:center;gap:16px;border-top:1px solid var(--border);padding-top:24px}
+.tcard-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:1rem;color:var(--ink);flex-shrink:0}
+.a1{background:linear-gradient(135deg,#38bdf8,#0ea5e9)}.a2{background:linear-gradient(135deg,#818cf8,#6366f1)}.a3{background:linear-gradient(135deg,#0ea5e9,#0284c7)}.a4{background:linear-gradient(135deg,#6366f1,#8b5cf6)}
+.tcard-name{font-family:var(--font-display);font-weight:700;font-size:.95rem;color:#38bdf8}
+.tcard-role{font-family:var(--font-mono);font-size:.68rem;color:var(--paper3);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.tcard-num{position:absolute;top:24px;right:32px;font-family:var(--font-display);font-size:5rem;font-weight:800;color:rgba(240,240,240,0.04);line-height:1}
+
+/* CTA BANNER */
+.cta-banner{padding:80px 48px;background:linear-gradient(135deg,#04080f,#0c1a2e);position:relative;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='0.06'/%3E%3C/svg%3E");pointer-events:none}
+.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;position:relative;z-index:1}
+.cta-text{}
+.cta-eyebrow{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:12px}
+.cta-title{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,5rem);font-weight:800;letter-spacing:-.04em;line-height:.95;color:#fff}
+.cta-btn{display:inline-flex;align-items:center;gap:12px;background:#fff;color:#04080f;padding:20px 40px;border-radius:100px;font-family:var(--font-display);font-weight:700;font-size:1.1rem;text-decoration:none;cursor:none;transition:transform .3s,box-shadow .3s;white-space:nowrap;flex-shrink:0}
+.cta-btn:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(56,189,248,0.25)}
+.cta-arr{display:inline-block;transition:transform .3s}
+.cta-btn:hover .cta-arr{transform:translate(4px,-4px)}
+
+/* CONTACT */
+#contact{padding:80px 48px;border-top:1px solid var(--border)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-info-side{}
+.ci-label{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.ci-label::before{content:'';display:block;width:24px;height:1px;background:var(--accent)}
+.ci-title{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-bottom:24px;background:linear-gradient(135deg,#e8f0fe 0%,#38bdf8 60%,#818cf8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ci-bio{color:var(--paper2);font-size:1.05rem;line-height:1.8;margin-bottom:40px}
+.ci-links{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.ci-link{display:flex;align-items:center;gap:18px;padding:22px 24px;border-bottom:1px solid var(--border);text-decoration:none;color:var(--paper);transition:background .3s;cursor:none}
+.ci-link:last-child{border-bottom:none}
+.ci-link:hover{background:var(--ink2)}
+.ci-link-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.il1{background:rgba(56,189,248,0.15)}.il2{background:rgba(129,140,248,0.15)}.il3{background:rgba(14,165,233,0.15)}
+.ci-link-label{font-family:var(--font-mono);font-size:.65rem;color:var(--paper3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px}
+.ci-link-val{font-family:var(--font-display);font-weight:700;font-size:.95rem}
+.ci-link-arr{margin-left:auto;color:var(--paper3);transition:transform .3s,color .3s}
+.ci-link:hover .ci-link-arr{transform:translate(4px,-4px);color:var(--accent)}
+
+/* FORM */
+.form-side{display:flex;flex-direction:column;gap:0}
+.form-wrap{display:flex;flex-direction:column;gap:20px}
+.fl{display:block;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--paper3);margin-bottom:8px}
+.fi,.ft{
+  width:100%;background:var(--ink2);border:1px solid var(--border);
+  border-radius:12px;padding:16px 20px;
+  color:var(--paper);font-family:var(--font-body);font-size:.95rem;
+  transition:border-color .3s,box-shadow .3s;outline:none;resize:none;
+}
+.fi:focus,.ft:focus{border-color:rgba(56,189,248,0.4);box-shadow:0 0 0 3px rgba(56,189,248,0.08)}
+.fi::placeholder,.ft::placeholder{color:var(--paper3)}
+.ft{height:140px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.btn-submit{
+  width:100%;background:var(--accent);color:#04080f;
+  border:none;padding:18px 32px;border-radius:100px;
+  font-family:var(--font-display);font-weight:800;font-size:1rem;
+  cursor:none;transition:transform .3s,box-shadow .3s;
+  letter-spacing:.02em;position:relative;overflow:hidden;
+}
+.btn-submit::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.1);opacity:0;transition:opacity .3s}
+.btn-submit:hover::before{opacity:1}
+.btn-submit:hover{transform:translateY(-3px);box-shadow:0 20px 50px rgba(56,189,248,0.25)}
+.form-note{font-family:var(--font-mono);font-size:.68rem;color:var(--paper3);text-align:center;margin-top:8px;letter-spacing:.06em}
+#form-success{display:none;text-align:center;padding:40px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.2);border-radius:16px}
+.fs-icon{font-size:3rem;margin-bottom:12px}
+.fs-title{font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--accent);margin-bottom:8px}
+.fs-text{color:var(--paper2);font-size:.95rem}
+
+/* FOOTER */
+.page-footer{padding:48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.footer-copy{font-family:var(--font-mono);font-size:.75rem;color:var(--paper2);letter-spacing:.08em}
+.footer-email{font-family:var(--font-mono);font-size:.75rem;color:var(--accent);letter-spacing:.08em;text-decoration:none}
+.footer-nav{display:flex;gap:28px}
+.footer-nav a{font-family:var(--font-mono);font-size:.72rem;color:var(--paper2);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .3s}
+.footer-nav a:hover{color:var(--paper)}
+.footer-socials{display:flex;gap:12px}
+.fsoc{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--paper2);text-decoration:none;font-size:.9rem;transition:all .3s;cursor:none}
+.fsoc:hover{border-color:var(--accent);color:var(--accent)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(0.16,1,0.3,1),transform .9s cubic-bezier(0.16,1,0.3,1)}
+.rv.on{opacity:1;transform:translateY(0)}
+.rv-l{opacity:0;transform:translateX(-40px);transition:opacity .9s cubic-bezier(0.16,1,0.3,1),transform .9s cubic-bezier(0.16,1,0.3,1)}
+.rv-l.on{opacity:1;transform:translateX(0)}
+.rv-r{opacity:0;transform:translateX(40px);transition:opacity .9s cubic-bezier(0.16,1,0.3,1),transform .9s cubic-bezier(0.16,1,0.3,1)}
+.rv-r.on{opacity:1;transform:translateX(0)}
+.d100{transition-delay:.1s}.d200{transition-delay:.2s}.d300{transition-delay:.3s}.d400{transition-delay:.4s}
+
+@media(max-width:1100px){
+  .proj-item{grid-template-columns:60px 1fr 160px;gap:20px}
+  .proj-links{display:none}
+}
+@media(max-width:900px){
+  .page-header{padding:120px 24px 60px}
+  .filter-bar,.projects-wrap,.testi-section,#contact,.page-footer{padding-left:24px;padding-right:24px}
+  .cta-banner{padding:60px 24px}
+  .proj-item{grid-template-columns:50px 1fr;gap:16px}
+  .proj-tags{display:none}
+  .testi-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr;gap:48px}
+  nav{padding:20px 24px}
+  .nav-menu,.nav-cta{display:none}
+  .ham{display:flex}
+  .page-footer{padding:32px 24px;flex-direction:column;text-align:center}
+  .footer-socials{justify-content:center}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="c-dot"></div><div id="c-ring"></div>
+<div id="curtain"></div>
+<div class="proj-preview" id="projPreview"><img src="" alt="" id="prevImg"></div>
+<div id="mnav">
+  <button class="mclose" id="mclose">✕ close</button>
+  <a href="index.html" onclick="nav(event,this.href)">Home</a>
+  <a href="about.html" onclick="nav(event,this.href)">About</a>
+  <a href="portfolio.html">Portfolio</a>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo" onclick="nav(event,this.href)">
+    <img src="logo.jpg" alt="Logo" class="nav-logo-img">
+    Juwon Thetech 
+  </a>
+  <ul class="nav-menu">
+    <li><a href="index.html" onclick="nav(event,this.href)">Home</a></li>
+    <li><a href="about.html" onclick="nav(event,this.href)">About</a></li>
+    <li><a href="portfolio.html" class="active">Portfolio</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="page-header">
+  <div class="ph-label">Selected Work</div>
+  <h1 class="ph-title">
+    <span class="ph-line"><span class="ph-line-inner d1">Projects &</span></span>
+    <span class="ph-line"><span class="ph-line-inner d2 outline">Portfolio</span></span>
+  </h1>
+</header>
+
+<div class="filter-bar rv">
+  <button class="fb active" data-f="all">All Work</button>
+  <button class="fb" data-f="web">Web Design</button>
+  <button class="fb" data-f="portfolio">Portfolio</button>
+  <button class="fb" data-f="landing">Landing Pages</button>
+  <button class="fb" data-f="branding">Branding</button>
+</div>
+
+<div class="projects-wrap">
+  <div class="proj-list">
+
+    <div class="proj-item rv" data-cat="web" data-img="school.jpg">
+      <div class="proj-num">01</div>
+      <div class="proj-title-wrap">
+        <div class="proj-title">BrightPath Academy</div>
+        <div class="proj-desc">School website with student portal, event calendar & admin dashboard</div>
+      </div>
+      <div class="proj-tags">
+        <span class="ptag">HTML</span>
+        <span class="ptag">CSS</span>
+        <span class="ptag">JavaScript</span>
+      </div>
+      <div class="proj-links">
+        <a href="#" class="plink">🔗</a>
+        <a href="#" class="plink"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="proj-item rv d100" data-cat="portfolio" data-img="pro.jpg">
+      <div class="proj-num">02</div>
+      <div class="proj-title-wrap">
+        <div class="proj-title">CreativeAde Studio</div>
+        <div class="proj-desc">Photographer portfolio with animated gallery & booking system</div>
+      </div>
+      <div class="proj-tags">
+        <span class="ptag">HTML</span>
+        <span class="ptag">GSAP</span>
+        <span class="ptag">CSS</span>
+      </div>
+      <div class="proj-links">
+        <a href="#" class="plink">🔗</a>
+        <a href="#" class="plink"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="proj-item rv d200" data-cat="landing" data-img="po.jpg">
+      <div class="proj-num">03</div>
+      <div class="proj-title-wrap">
+        <div class="proj-title">ShopNova Landing Page</div>
+        <div class="proj-desc">High-converting product landing page — increased conversions by 40%</div>
+      </div>
+      <div class="proj-tags">
+        <span class="ptag">HTML</span>
+        <span class="ptag">CSS</span>
+        <span class="ptag">JavaScript</span>
+      </div>
+      <div class="proj-links">
+        <a href="#" class="plink">🔗</a>
+        <a href="#" class="plink"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="proj-item rv d300" data-cat="branding" data-img="logo.jpg">
+      <div class="proj-num">04</div>
+      <div class="proj-title-wrap">
+        <div class="proj-title">Juwon TheTech Brand Identity</div>
+        <div class="proj-desc">Full brand identity — logo, color system, and typography for personal brand</div>
+      </div>
+      <div class="proj-tags">
+        <span class="ptag">Logo Design</span>
+        <span class="ptag">Branding</span>
+        <span class="ptag">Visual Identity</span>
+      </div>
+      <div class="proj-links">
+        <a href="#" class="plink">🔗</a>
+        <a href="#" class="plink"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="proj-item rv d400" data-cat="web" data-img="land.jpg">
+      <div class="proj-num">05</div>
+      <div class="proj-title-wrap">
+        <div class="proj-title">GrillHouse Restaurant</div>
+        <div class="proj-desc">Elegant restaurant website with animated menu & reservation system</div>
+      </div>
+      <div class="proj-tags">
+        <span class="ptag">HTML</span>
+        <span class="ptag">CSS</span>
+        <span class="ptag">JavaScript</span>
+      </div>
+      <div class="proj-links">
+        <a href="#" class="plink">🔗</a>
+        <a href="#" class="plink"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="sec-header rv">
+    <h2 class="sec-title">Client <span>Words</span></h2>
+    <p style="font-family:var(--font-mono);font-size:.72rem;color:var(--paper2);letter-spacing:.12em;text-transform:uppercase;max-width:220px;text-align:right;line-height:1.6">Real feedback from real clients</p>
+  </div>
+  <div class="testi-grid">
+    <div class="tcard rv d100">
+      <div class="tcard-num">"</div>
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">Juwon Thetech delivered beyond my expectations. The school website he built for us is clean, fast, and parents love it. He communicated throughout the process and delivered on time. Absolutely recommend!</p>
+      <div class="tcard-author">
+        <div class="tcard-avatar a1">AO</div>
+        <div>
+          <div class="tcard-name">Adaeze Okonkwo</div>
+          <div class="tcard-role">Principal, BrightPath Academy</div>
+        </div>
+      </div>
+    </div>
+    <div class="tcard rv d200">
+      <div class="tcard-num">"</div>
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">My portfolio site is stunning. I've gotten three job offers just from sharing the link! Shadow really knows how to make a developer look incredible online. The animations are smooth and the design is premium.</p>
+      <div class="tcard-author">
+        <div class="tcard-avatar a2">TK</div>
+        <div>
+          <div class="tcard-name">Tunde Koleosho</div>
+          <div class="tcard-role">Frontend Developer</div>
+        </div>
+      </div>
+    </div>
+    <div class="tcard rv d300">
+      <div class="tcard-num">"</div>
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">The landing page Juwon Thetech built for my business increased our leads by 60% in the first month. It loads fast, looks incredible on mobile, and the design is exactly what we envisioned. Worth every naira!</p>
+      <div class="tcard-author">
+        <div class="tcard-avatar a3">FZ</div>
+        <div>
+          <div class="tcard-name">Funmi Eze</div>
+          <div class="tcard-role">CEO, ShopNova</div>
+        </div>
+      </div>
+    </div>
+    <div class="tcard rv d400">
+      <div class="tcard-num">"</div>
+      <div class="tcard-stars">★★★★★</div>
+      <p class="tcard-text">Professional, talented, and easy to work with. Juwon Thetech took my vague idea and turned it into a beautiful reality. The restaurant website looks gorgeous — exactly the upscale vibe we were going for.</p>
+      <div class="tcard-author">
+        <div class="tcard-avatar a4">BA</div>
+        <div>
+          <div class="tcard-name">Biodun Alade</div>
+          <div class="tcard-role">Owner, GrillHouse Restaurant</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner rv">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <div class="cta-eyebrow">Ready to work together?</div>
+      <h2 class="cta-title">Let's build<br>something great.</h2>
+    </div>
+    <a href="#contact" class="cta-btn">Start a Project <span class="cta-arr">↗</span></a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info-side rv-l">
+      <div class="ci-label">Contact</div>
+      <h2 class="ci-title">Get In Touch</h2>
+      <p class="ci-bio">Have a project in mind? Let's talk. I'm always open to discussing new work, creative ideas, or opportunities to be part of something amazing.</p>
+      <div class="ci-links">
+        <a href="mailto:JuwonThetech@gmail.com" class="ci-link">
+          <div class="ci-link-icon il1">✉️</div>
+          <div>
+            <div class="ci-link-label">Email</div>
+            <div class="ci-link-val">JuwonThetech@gmail.com</div>
+          </div>
+          <span class="ci-link-arr">↗</span>
+        </a>
+        <a href="https://wa.me/2348138094913" target="_blank" class="ci-link">
+          <div class="ci-link-icon il2">💬</div>
+          <div>
+            <div class="ci-link-label">WhatsApp</div>
+            <div class="ci-link-val">Chat Directly</div>
+          </div>
+          <span class="ci-link-arr">↗</span>
+        </a>
+        <a href="https://x.com/JuwonThete83072" class="ci-link">
+          <div class="ci-link-icon il3">𝕏</div>
+          <div>
+            <div class="ci-link-label">Twitter / X</div>
+            <div class="ci-link-val">@juwonthetech</div>
+          </div>
+          <span class="ci-link-arr">↗</span>
+        </a>
+      </div>
+    </div>
+    <div class="form-side rv-r">
+      <div class="form-wrap" id="contactForm">
+        <div class="form-row">
+          <div><label class="fl">Your Name</label><input type="text" class="fi" placeholder="e.g. Amara Johnson"></div>
+          <div><label class="fl">Email Address</label><input type="email" class="fi" placeholder="juwonthetech@gmail.com"></div>
+        </div>
+        <div><label class="fl">Project Type</label><input type="text" class="fi" placeholder="e.g. Portfolio, School Website..."></div>
+        <div><label class="fl">Budget Range</label>
+          <select class="fi" style="cursor:none;appearance:none">
+            <option value="" disabled selected>Select a range...</option>
+            <option>₦5,000 – ₦20,000</option>
+            <option>₦20,000 – ₦50,000</option>
+            <option>₦50,000 – ₦100,000</option>
+            <option>₦100,000-500,000</option>
+            <option>$500,000+</option>
+          </select>
+        </div>
+        <div><label class="fl">Message</label><textarea class="ft" placeholder="Tell me about your project, goals, and timeline..."></textarea></div>
+        <button class="btn-submit" id="submitBtn">Send Message ✦</button>
+        <div class="form-note">✦ I typically respond within 24 hours</div>
+      </div>
+      <div id="form-success">
+        <div class="fs-icon">✅</div>
+        <div class="fs-title">Message Sent!</div>
+        <p class="fs-text">Thank you for reaching out. I'll get back to you within 24 hours at JuwonThetech@gmail.com</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="page-footer rv">
+  <div class="footer-copy">© 2025 Abdulsalam a.k.a Juwon Thetech. All rights reserved.</div>
+  <a href="mailto:JuwonThetech@gmail.com" class="footer-email">JuwonThetech@gmail.com</a>
+  <div class="footer-socials">
+    <a href="#" class="fsoc">𝕏</a>
+    <a href="#" class="fsoc"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+    <a href="#" class="fsoc">in</a>
+  </div>
+  <nav class="footer-nav">
+    <a href="index.html" onclick="nav(event,this.href)">Home</a>
+    <a href="about.html" onclick="nav(event,this.href)">About</a>
+    <a href="portfolio.html">Portfolio</a>
+  </nav>
+</footer>
+
+<script>
+const dot=document.getElementById('c-dot'),ring=document.getElementById('c-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+(function raf(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(raf)})();
+document.querySelectorAll('a,button,.tcard,.proj-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-big'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-big'));
+});
+function nav(e,href){e.preventDefault();const c=document.getElementById('curtain');c.className='in';setTimeout(()=>window.location.href=href,500)}
+window.addEventListener('pageshow',()=>{const c=document.getElementById('curtain');c.className='out';setTimeout(()=>c.className='',500)});
+document.getElementById('ham').addEventListener('click',()=>document.getElementById('mnav').classList.add('open'));
+document.getElementById('mclose').addEventListener('click',()=>document.getElementById('mnav').classList.remove('open'));
+setTimeout(()=>document.querySelectorAll('.ph-line-inner').forEach(el=>el.classList.add('on')),300);
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on')}});
+},{threshold:0.08});
+document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>obs.observe(el));
+
+// Filter
+document.querySelectorAll('.fb').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.f;
+    document.querySelectorAll('.proj-item').forEach(item=>{
+      const show=f==='all'||item.dataset.cat===f;
+      item.style.transition='opacity .5s,transform .5s';
+      item.style.opacity=show?'1':'0.15';
+      item.style.pointerEvents=show?'auto':'none';
+    });
+  });
+});
+
+// Project hover preview
+const preview=document.getElementById('projPreview');
+const prevImg=document.getElementById('prevImg');
+document.querySelectorAll('.proj-item').forEach(item=>{
+  item.addEventListener('mouseenter',()=>{
+    const imgSrc=item.dataset.img;
+    if(imgSrc){prevImg.src=imgSrc;preview.classList.add('show')}
+  });
+  item.addEventListener('mouseleave',()=>preview.classList.remove('show'));
+  item.addEventListener('mousemove',e=>{
+    preview.style.left=(e.clientX+24)+'px';
+    preview.style.top=(e.clientY-120)+'px';
+  });
+});
+
+// Form
+document.getElementById('submitBtn').addEventListener('click',function(){
+  this.textContent='Sending...';this.style.opacity='.6';
+  setTimeout(()=>{
+    document.getElementById('contactForm').style.display='none';
+    document.getElementById('form-success').style.display='block';
+  },1500);
+});
+</script>
+</body>
+</html>
